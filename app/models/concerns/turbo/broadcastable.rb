@@ -149,6 +149,10 @@ module Turbo::Broadcastable
       after_destroy_commit -> { broadcast_refresh }
     end
 
+    def broadcasts_initialization
+      after_initialize -> { broadcast_refresh_later }
+    end
+
     # All default targets will use the return of this method. Overwrite if you want something else than <tt>model_name.plural</tt>.
     def broadcast_target_default
       model_name.plural
